@@ -23,6 +23,7 @@ class Welcome extends CI_Controller {
 		echo '<pre>';
 		print_r(base_url('/welcome'));
 		echo '<br><a href="'.base_url('/welcome').'">testt</a>';
+		var_dump(class_exists('MX_Router'));
 		exit(__FILE__.'@@'.__CLASS__.'@'.__METHOD__.'@'.__LINE__);
 		
 		$this->load->view('welcome_message');
