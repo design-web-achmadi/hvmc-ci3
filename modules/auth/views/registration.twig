@@ -1,0 +1,72 @@
+{% set bodyAttribute=' class="loading-overlay-showing" data-loading-overlay' %}
+{% extends 'layout/base-layout.twig' %}
+
+{% block cssPagesModule %}
+    <link rel="stylesheet" href="{{base_url ('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css')}}" />
+    <link rel="stylesheet" href="{{base_url ('assets/vendor/select2/css/select2.css')}}" />
+    <link rel="stylesheet" href="{{base_url ('assets/vendor/select2-bootstrap-theme/select2-bootstrap.min.css')}}" />
+    <link rel="stylesheet" href="{{base_url ('assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css')}}" />
+    <link rel="stylesheet" href="{{base_url ('assets/vendor/magnific-popup/magnific-popup.css')}}" />
+    <link rel="stylesheet" href="{{base_url ('assets/vendor/pnotify/pnotify.custom.css')}}" />
+{% endblock %}
+
+{% block cssPages %}
+    <link rel="stylesheet" href="{{base_url ('assets/stylesheets/customer-registration.css')}}{{ ver['css']['customer-registration'] }}">
+{% endblock %}
+
+{% block content %}
+
+    {% include('parts/modal-preview-photo.twig') %}
+    
+    <div class="form-wizard col-md-offset-2 col-md-8" id="wizard">
+        {% include('parts/registration-wizard-index.twig') %}
+        <form id="form-endpoint" method="post" enctype="multipart/form-data" data-loading-overlay>
+            <ol class="breadcrumbs">
+                <li>
+                    <a href="{{ base_url('leads/manage/') }}">
+                        <span>{{ lang('manage_leads_link') }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% if lead %}{{ base_url('leads/journey/'~unnormalize_code(lead.mt_leads_code)) }}{% else %}{{ base_url('leads/journey/'~unnormalize_code(invoice.mt_leads_code)) }}{% endif %}">
+                        <span>{{ lang('journey_leads_link') }}</span>
+                    </a>
+                </li>
+                <li>
+                    <span>{{ titleform }}</span>
+                </li>
+            </ol>
+            <div class="tab-content col-md-12">
+                {% include('parts/registration-form-outlet-info.twig') %}
+                {% include('parts/registration-form-finance-and-document.twig') %}
+                {% include('parts/registration-form-package.twig') %}
+            </div>
+        </form>
+    </div>
+    
+{% endblock %}
+
+{% block jsPagesModule %}
+    <script src="{{base_url ('assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js')}}"></script>
+    <script src="{{base_url ('assets/vendor/select2/js/select2.js')}}"></script>
+    <script src="{{base_url ('assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js')}}"></script>
+    <script src="{{base_url ('assets/vendor/magnific-popup/jquery.magnific-popup.js')}}"></script>
+    <script src="{{ base_url('assets/vendor/jquery-inputmask/jquery.inputmask.min.js') }}"></script>
+    <script src="{{base_url ('assets/vendor/jquery-validation/jquery.validate.js')}}"></script>
+    <script src="{{base_url ('assets/vendor/jquery-validation/additional-methods.js')}}"></script>
+    <script src="{{base_url ('assets/vendor/nprogress/nprogress.js')}}"></script>
+    <script src="{{base_url ('assets/vendor/compressorjs/compressor.js')}}"></script>
+    <script src="{{base_url ('assets/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js')}}" ></script>
+    <script src="{{ base_url('assets/vendor/ios7-switch/ios7-switch.js') }}"></script>
+	<script src="{{ base_url('assets/vendor/pnotify/pnotify.custom.js')}}"></script>
+    <script>
+        language = JSON.parse('{{ language | json_encode | raw }}');
+        leads = JSON.parse('{{ leads | json_encode | raw }}');
+    </script>
+{% endblock %}
+
+{% block jsPages %}
+
+    <script src="{{base_url ('assets/javascripts/ui-elements/theme.image-compress-uploader.js')}}"></script>
+    <script src="{{base_url ('assets/javascripts/customer/customer-registration.js')}}{{ ver['js']['customer-registration'] }}"></script>
+{% endblock %}

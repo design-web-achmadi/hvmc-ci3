@@ -1,0 +1,449 @@
+
+<div class="col-md-12 mobile-fullscreen tab-pane" id="form-finance">
+    <div class="form-group row border-bottom">
+        <div class="col-md-12 ">
+            <h3><bold>{{ lang('header_finance') }}</bold></h3>
+            
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('header_emoney') }}
+        </label>
+        <div class="checkbox col-md-12">
+            <label>
+                <input type="checkbox" value="1" name="is_request_qris" class="is-request-qris" {{ is_request_qris == 1 ? 'checked' : '' }}>
+                Single E-Money (QRIS)
+            </label>
+        </div>
+        <div class="checkbox col-md-12">
+            <label>
+                <input type="checkbox" value="1" name="is_request_tpoin" class="is-request-tpoin" {{ is_request_tpoin == 1 ? 'checked' : '' }}>
+                Telkomsel Money
+            </label>
+        </div>
+        <div class="checkbox col-md-12">
+            <label>
+                <input type="checkbox" value="1" name="is_request_edcbca" class="is-request-edcbca" {{ is_request_edcbca == 1 ? 'checked' : '' }}>
+                EDC BCA
+            </label>
+        </div>
+    </div>
+    <div class="form-group row border-bottom">
+        <div class="col-md-12 ">
+            <h3><bold>{{ lang('header_document') }}</bold></h3>
+        </div>
+    </div>
+    <div class="form-group row bank-account-group">
+        <label class="control-label col-md-12">
+            {{ lang('bank_account') }}
+        </label>
+        <div class="col-md-12">
+            <select class="form-control populate" name="bank_account"
+                    data-plugin-selectTwo data-plugin-options='{"width": "style", "placeholder": "{{ lang('select_placeholder') ~lang('bank_account') }}", "allowClear": true, "selected_id": "{{ set_value('bank_account',bank_account) }}", "selected_text": "{{ set_value('m_bank_name', bank_account) }}"}'
+                    data-remote='{"url": "{{ base_url("select/master/index/bank") }}", "transformResponse": {"id": "m_bank_code", "text": "m_bank_name"} }'
+                   
+            >
+                <option></option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row bank-account-group">
+        <label class="control-label col-md-12">
+            {{ lang('bank_account_number') }}
+        </label>
+        <div class="col-md-12">
+            <input type="text" name="bank_account_number" class="form-control col-md-12" value="{{ set_value('bank_account_number', bank_account_number) }}" maxlength="20"/>
+        </div>
+        {%- if form_error('bank_account_number') %}
+        <label class="error" for="bank_account_number">{{form_error('bank_account_number')}}</label>
+        {% endif -%}
+    </div>
+    <div class="form-group row bank-account-group">
+        <label class="control-label col-md-12">
+            {{ lang('bank_account_name')}}
+        </label>
+        <div class="col-md-12">
+            <input type="text" name="bank_account_name" class="form-control col-md-12" value="{{ set_value('bank_account_name', bank_account_name) }}" maxlength="100"/>
+        </div>
+        {%- if form_error('bank_account_name') %}
+        <label class="error" for="bank_account_name">{{form_error('bank_account_name')}}</label>
+        {% endif -%}
+    </div>
+    <div class="form-group row bank-account-group">
+        <label class="control-label col-md-12">
+            {{ lang('bank_branch') }}
+        </label>
+        <div class="col-md-12">
+            <input type="text" name="bank_branch" class="form-control col-md-12" value="{{ set_value('bank_branch', bank_branch) }}" maxlength="50"/>
+        </div>
+        {%- if form_error('bank_branch') %}
+        <label class="error" for="bank_branch">{{form_error('bank_branch')}}</label>
+        {% endif -%}
+    </div>
+    <div class="form-group row no-npwp-group">
+        <label class="control-label col-md-12">
+            {{ lang('no_npwp') }}
+        </label>
+        <div class="col-md-12">
+            <input type="text" class="form-control col-md-12" name="no_npwp" value="{{ set_value('no_npwp', no_npwp) }}" maxlength="20"/>
+        </div>
+        {%- if form_error('no_npwp') %}
+        <label class="error" for="no_npwp">{{form_error('no_npwp')}}</label>
+        {% endif -%}
+    </div>
+    <div class="form-group row npwp-group fileupload fileupload-new {% if form_error('photo_of_owner_npwp') %} has-error{% endif %}" data-provides="fileupload" data-hidden-target="photo_of_owner_npwp" data-hidden-bucket="bucket_proof_payment" id="upload-photo-journey">
+        <label class="control-label col-md-12">
+            {{ lang('photo_of_owner_npwp') }}
+        </label>
+        <div class="col-xs-12">
+            <div class="input-group btn-group col-md-12">
+                
+                <div class="input-append">
+                    <div class="uneditable-input">
+                        <i class="fa fa-file fileupload-exists"></i>
+                        <span class="fileupload-preview"></span>
+                    </div>
+                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </div>
+                <span class="btn-file">
+                    <button type="button" class="btn btn-primary fileupload-new">{{ lang('btn_upload') ~ lang('photo_of_owner_npwp') }}</button>
+                    <button type="button" class="btn btn-primary fileupload-viewphoto hidden" data-toggle="modal" data-target="#modal-preview-photo">{{ lang('btn_view') ~ lang('photo_of_owner_npwp')}}</button>
+                    <input type="file" class="file-photo" name="image_outlet" accept="image/png, image/jpg, image/jpeg" data-placeholder="{{ lang('file_placeholder') ~ lang('photo_of_owner_npwp') }}">
+                    <input type="hidden" name="photo_of_owner_npwp" value="{{ set_value('photo_of_owner_npwp', photo_of_owner_npwp) }}">
+                    <input type="hidden" name="bucket_proof_payment" value="{{ set_value('bucket_proof_payment', (outlet_photo is empty ? 'TMP' : 'APP')) }}" />
+                </span>
+                {% if form_error('photo_of_owner_npwp') %}
+                    <label class="error" for="photo_of_owner_npwp">{{form_error('photo_of_owner_npwp')}}</label>
+                {% endif %}
+                <label class="help-block text-muted">{{ lang('text_helper_upload_file') }}</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row cover-book-group fileupload fileupload-new {% if form_error('photo_bank_cover_book') %} has-error{% endif %}" data-provides="fileupload" data-hidden-target="photo_bank_cover_book" data-hidden-bucket="bucket_proof_payment" id="upload-photo-journey">
+        <label class="control-label col-md-12">
+            {{ lang('photo_bank_cover_book') }}
+        </label>
+        <div class="col-xs-12">
+            <div class="input-group btn-group col-md-12">
+            
+                <div class="input-append">
+                    <div class="uneditable-input">
+                        <i class="fa fa-file fileupload-exists"></i>
+                        <span class="fileupload-preview"></span>
+                    </div>
+                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </div>
+                <span class="btn-file">
+                    <button type="button" class="btn btn-primary fileupload-new">{{ lang('btn_upload') ~ lang('photo_bank_cover_book') }}</button>
+                    <button type="button" class="btn btn-primary fileupload-viewphoto hidden" data-toggle="modal" data-target="#modal-preview-photo">{{ lang('btn_view') ~ lang('photo_bank_cover_book')}}</button>
+                    <input type="file" class="file-photo" name="image_bank_cover_book" accept="image/png, image/jpg, image/jpeg" data-placeholder="{{ lang('file_placeholder') ~ lang('photo_bank_cover_book') }}">
+                    <input type="hidden" name="photo_bank_cover_book" value="{{ set_value('photo_bank_cover_book', photo_bank_cover_book) }}">
+                </span>
+                {% if form_error('photo_bank_cover_book') %}
+                    <label class="error" for="photo_bank_cover_book">{{form_error('photo_bank_cover_book')}}</label>
+                {% endif %}
+                <label class="help-block text-muted">{{ lang('text_helper_upload_file') }}</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row establisment-cert-group fileupload fileupload-new {% if form_error('photo_of_establisment_cert') %} has-error{% endif %}" data-provides="fileupload" data-hidden-target="photo_of_establisment_cert" data-hidden-bucket="bucket_proof_payment" id="upload-photo-journey">
+        <label class="control-label col-md-12">
+            {{ lang('photo_of_establisment_cert') }}
+        </label>
+        <div class="col-xs-12">
+            <div class="input-group btn-group col-md-12">
+                
+                <div class="input-append">
+                    <div class="uneditable-input">
+                        <i class="fa fa-file fileupload-exists"></i>
+                        <span class="fileupload-preview"></span>
+                    </div>
+                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </div>
+                <span class="btn-file">
+                    <button type="button" class="btn btn-primary fileupload-new">{{ lang('btn_upload') ~ lang('photo_of_establisment_cert') }}</button>
+                    <button type="button" class="btn btn-primary fileupload-viewphoto hidden" data-toggle="modal" data-target="#modal-preview-photo">{{ lang('btn_view') ~ lang('photo_of_establisment_cert')}}</button>
+                    <input type="file" class="file-photo" name="image_outlet" accept="image/png, image/jpg, image/jpeg" data-placeholder="{{ lang('file_placeholder') ~ lang('photo_of_establisment_cert') }}">
+                    <input type="hidden" name="photo_of_establisment_cert" value="{{ set_value('photo_of_establisment_cert', photo_of_establisment_cert) }}">
+                </span>
+                {% if form_error('photo_of_establisment_cert') %}
+                    <label class="error" for="photo_of_establisment_cert">{{form_error('photo_of_establisment_cert')}}</label>
+                {% endif %}
+                <label class="help-block text-muted">{{ lang('text_helper_upload_file') }}</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row change-cert-group fileupload fileupload-new {% if form_error('photo_of_change_cert') %} has-error{% endif %}" data-provides="fileupload" data-hidden-target="photo_of_change_cert" data-hidden-bucket="bucket_proof_payment" id="upload-photo-journey">
+        <label class="control-label col-md-12">
+            {{ lang('photo_of_change_cert') }}
+        </label>
+        <div class="col-xs-12">
+            <div class="input-group btn-group col-md-12">
+                
+                <div class="input-append">
+                    <div class="uneditable-input">
+                        <i class="fa fa-file fileupload-exists"></i>
+                        <span class="fileupload-preview"></span>
+                    </div>
+                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </div>
+                <span class="btn-file">
+                    <button type="button" class="btn btn-primary fileupload-new">{{ lang('btn_upload') ~ lang('photo_of_change_cert') }}</button>
+                    <button type="button" class="btn btn-primary fileupload-viewphoto hidden" data-toggle="modal" data-target="#modal-preview-photo">{{ lang('btn_view') ~ lang('photo_of_change_cert')}}</button>
+                    <input type="file" class="file-photo" name="image_outlet" accept="image/png, image/jpg, image/jpeg" data-placeholder="{{ lang('file_placeholder') ~ lang('photo_of_change_cert') }}">
+                    <input type="hidden" name="photo_of_change_cert" value="{{ set_value('photo_of_change_cert', photo_of_change_cert) }}">
+                </span>
+                {% if form_error('photo_of_change_cert') %}
+                    <label class="error" for="photo_of_change_cert">{{form_error('photo_of_change_cert')}}</label>
+                {% endif %}
+                <label class="help-block text-muted">{{ lang('text_helper_upload_file') }}</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row sk-kemenhumham-group fileupload fileupload-new {% if form_error('photo_of_sk_kemenhumham') %} has-error{% endif %}" data-provides="fileupload" data-hidden-target="photo_of_sk_kemenhumham" data-hidden-bucket="bucket_proof_payment" id="upload-photo-journey">
+        <label class="control-label col-md-12">
+            {{ lang('photo_of_sk_kemenhumham') }}
+        </label>
+        <div class="col-xs-12">
+            <div class="input-group btn-group col-md-12">
+                
+                <div class="input-append">
+                    <div class="uneditable-input">
+                        <i class="fa fa-file fileupload-exists"></i>
+                        <span class="fileupload-preview"></span>
+                    </div>
+                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </div>
+                <span class="btn-file">
+                    <button type="button" class="btn btn-primary fileupload-new">{{ lang('btn_upload') ~ lang('photo_of_sk_kemenhumham') }}</button>
+                    <button type="button" class="btn btn-primary fileupload-viewphoto hidden" data-toggle="modal" data-target="#modal-preview-photo">{{ lang('btn_view') ~ lang('photo_of_sk_kemenhumham')}}</button>
+                    <input type="file" class="file-photo" name="image_outlet" accept="image/png, image/jpg, image/jpeg" data-placeholder="{{ lang('file_placeholder') ~ lang('photo_of_sk_kemenhumham') }}">
+                    <input type="hidden" name="photo_of_sk_kemenhumham" value="{{ set_value('photo_of_sk_kemenhumham', photo_of_sk_kemenhumham) }}">
+                </span>
+                {% if form_error('photo_of_sk_kemenhumham') %}
+                    <label class="error" for="photo_of_sk_kemenhumham">{{form_error('photo_of_sk_kemenhumham')}}</label>
+                {% endif %}
+                <label class="help-block text-muted">{{ lang('text_helper_upload_file') }}</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row nib-group fileupload fileupload-new {% if form_error('photo_of_nib') %} has-error{% endif %}" data-provides="fileupload" data-hidden-target="photo_of_nib" data-hidden-bucket="bucket_proof_payment" id="upload-photo-journey">
+        <label class="control-label col-md-12">
+            {{ lang('photo_of_nib') }}
+        </label>
+        <div class="col-xs-12">
+            <div class="input-group btn-group col-md-12">
+                
+                <div class="input-append">
+                    <div class="uneditable-input">
+                        <i class="fa fa-file fileupload-exists"></i>
+                        <span class="fileupload-preview"></span>
+                    </div>
+                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </div>
+                <span class="btn-file">
+                    <button type="button" class="btn btn-primary fileupload-new">{{ lang('btn_upload') ~ lang('photo_of_nib') }}</button>
+                    <button type="button" class="btn btn-primary fileupload-viewphoto hidden" data-toggle="modal" data-target="#modal-preview-photo">{{ lang('btn_view') ~ lang('photo_of_nib')}}</button>
+                    <input type="file" class="file-photo" name="image_outlet" accept="image/png, image/jpg, image/jpeg" data-placeholder="{{ lang('file_placeholder') ~ lang('photo_of_nib') }}">
+                    <input type="hidden" name="photo_of_nib" value="{{ set_value('photo_of_nib', photo_of_nib) }}">
+                </span>
+                {% if form_error('photo_of_nib') %}
+                    <label class="error" for="photo_of_nib">{{form_error('photo_of_nib')}}</label>
+                {% endif %}
+                <label class="help-block text-muted">{{ lang('text_helper_upload_file') }}</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row siup-group fileupload fileupload-new {% if form_error('photo_of_siup') %} has-error{% endif %}" data-provides="fileupload" data-hidden-target="photo_of_siup" data-hidden-bucket="bucket_proof_payment" id="upload-photo-journey">
+        <label class="control-label col-md-12">
+            {{ lang('photo_of_siup') }}
+        </label>
+        <div class="col-xs-12">
+            <div class="input-group btn-group col-md-12">
+                
+                <div class="input-append">
+                    <div class="uneditable-input">
+                        <i class="fa fa-file fileupload-exists"></i>
+                        <span class="fileupload-preview"></span>
+                    </div>
+                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </div>
+                <span class="btn-file">
+                    <button type="button" class="btn btn-primary fileupload-new">{{ lang('btn_upload') ~ lang('photo_of_siup') }}</button>
+                    <button type="button" class="btn btn-primary fileupload-viewphoto hidden" data-toggle="modal" data-target="#modal-preview-photo">{{ lang('btn_view') ~ lang('photo_of_siup')}}</button>
+                    <input type="file" class="file-photo" name="image_outlet" accept="image/png, image/jpg, image/jpeg" data-placeholder="{{ lang('file_placeholder') ~ lang('photo_of_siup') }}">
+                    <input type="hidden" name="photo_of_siup" value="{{ set_value('photo_of_siup', photo_of_siup) }}">
+                </span>
+                {% if form_error('photo_of_siup') %}
+                    <label class="error" for="photo_of_siup">{{form_error('photo_of_siup')}}</label>
+                {% endif %}
+                <label class="help-block text-muted">{{ lang('text_helper_upload_file') }}</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row skdu-group fileupload fileupload-new {% if form_error('photo_of_skdu') %} has-error{% endif %}" data-provides="fileupload" data-hidden-target="photo_of_skdu" data-hidden-bucket="bucket_proof_payment" id="upload-photo-journey">
+        <label class="control-label col-md-12">
+            {{ lang('photo_of_skdu') }}
+        </label>
+        <div class="col-xs-12">
+            <div class="input-group btn-group col-md-12">
+                
+                <div class="input-append">
+                    <div class="uneditable-input">
+                        <i class="fa fa-file fileupload-exists"></i>
+                        <span class="fileupload-preview"></span>
+                    </div>
+                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </div>
+                <span class="btn-file">
+                    <button type="button" class="btn btn-primary fileupload-new">{{ lang('btn_upload') ~ lang('photo_of_skdu') }}</button>
+                    <button type="button" class="btn btn-primary fileupload-viewphoto hidden" data-toggle="modal" data-target="#modal-preview-photo">{{ lang('btn_view') ~ lang('photo_of_skdu')}}</button>
+                    <input type="file" class="file-photo" name="image_outlet" accept="image/png, image/jpg, image/jpeg" data-placeholder="{{ lang('file_placeholder') ~ lang('photo_of_skdu') }}">
+                    <input type="hidden" name="photo_of_skdu" value="{{ set_value('photo_of_skdu', photo_of_skdu) }}">
+                </span>
+                {% if form_error('photo_of_skdu') %}
+                    <label class="error" for="photo_of_skdu">{{form_error('photo_of_skdu')}}</label>
+                {% endif %}
+                <label class="help-block text-muted">{{ lang('text_helper_upload_file') }}</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row outlet-front-group fileupload fileupload-new {% if form_error('photo_of_outlet_front') %} has-error{% endif %}" data-provides="fileupload" data-hidden-target="photo_of_outlet_front" data-hidden-bucket="bucket_proof_payment" id="upload-photo-journey">
+        <label class="control-label col-md-12">
+            {{ lang('photo_of_outlet_front') }}
+        </label>
+        <div class="col-xs-12">
+            <div class="input-group btn-group col-md-12">
+                
+                <div class="input-append">
+                    <div class="uneditable-input">
+                        <i class="fa fa-file fileupload-exists"></i>
+                        <span class="fileupload-preview"></span>
+                    </div>
+                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </div>
+                <span class="btn-file">
+                    <button type="button" class="btn btn-primary fileupload-new">{{ lang('btn_upload') ~ lang('photo_of_outlet_front') }}</button>
+                    <button type="button" class="btn btn-primary fileupload-viewphoto hidden" data-toggle="modal" data-target="#modal-preview-photo">{{ lang('btn_view') ~ lang('photo_of_outlet_front')}}</button>
+                    <input type="file" class="file-photo" name="image_outlet" accept="image/png, image/jpg, image/jpeg" data-placeholder="{{ lang('file_placeholder') ~ lang('photo_of_outlet_front') }}">
+                    <input type="hidden" name="photo_of_outlet_front" value="{{ set_value('photo_of_outlet_front', photo_of_outlet_front) }}">
+                </span>
+                {% if form_error('photo_of_outlet_front') %}
+                    <label class="error" for="photo_of_outlet_front">{{form_error('photo_of_outlet_front')}}</label>
+                {% endif %}
+                <label class="help-block text-muted">{{ lang('text_helper_upload_file') }}</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row outlet-side-group fileupload fileupload-new {% if form_error('photo_of_outlet_side') %} has-error{% endif %}" data-provides="fileupload" data-hidden-target="photo_of_outlet_side" data-hidden-bucket="bucket_proof_payment" id="upload-photo-journey">
+        <label class="control-label col-md-12">
+            {{ lang('photo_of_outlet_side') }}
+        </label>
+        <div class="col-xs-12">
+            <div class="input-group btn-group col-md-12">
+                
+                <div class="input-append">
+                    <div class="uneditable-input">
+                        <i class="fa fa-file fileupload-exists"></i>
+                        <span class="fileupload-preview"></span>
+                    </div>
+                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </div>
+                <span class="btn-file">
+                    <button type="button" class="btn btn-primary fileupload-new">{{ lang('btn_upload') ~ lang('photo_of_outlet_side') }}</button>
+                    <button type="button" class="btn btn-primary fileupload-viewphoto hidden" data-toggle="modal" data-target="#modal-preview-photo">{{ lang('btn_view') ~ lang('photo_of_outlet_side')}}</button>
+                    <input type="file" class="file-photo" name="image_outlet" accept="image/png, image/jpg, image/jpeg" data-placeholder="{{ lang('file_placeholder') ~ lang('photo_of_outlet_side') }}">
+                    <input type="hidden" name="photo_of_outlet_side" value="{{ set_value('photo_of_outlet_side', photo_of_outlet_side) }}">
+                </span>
+                {% if form_error('photo_of_outlet_side') %}
+                    <label class="error" for="photo_of_outlet_side">{{form_error('photo_of_outlet_side')}}</label>
+                {% endif %}
+                <label class="help-block text-muted">{{ lang('text_helper_upload_file') }}</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row outlet-inside-group fileupload fileupload-new {% if form_error('photo_of_outlet_inside') %} has-error{% endif %}" data-provides="fileupload" data-hidden-target="photo_of_outlet_inside" data-hidden-bucket="bucket_proof_payment" id="upload-photo-journey">
+        <label class="control-label col-md-12">
+            {{ lang('photo_of_outlet_inside') }}
+        </label>
+        <div class="col-xs-12">
+            <div class="input-group btn-group col-md-12">
+                
+                <div class="input-append">
+                    <div class="uneditable-input">
+                        <i class="fa fa-file fileupload-exists"></i>
+                        <span class="fileupload-preview"></span>
+                    </div>
+                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </div>
+                <span class="btn-file">
+                    <button type="button" class="btn btn-primary fileupload-new">{{ lang('btn_upload') ~ lang('photo_of_outlet_inside') }}</button>
+                    <button type="button" class="btn btn-primary fileupload-viewphoto hidden" data-toggle="modal" data-target="#modal-preview-photo">{{ lang('btn_view') ~ lang('photo_of_outlet_inside')}}</button>
+                    <input type="file" class="file-photo" name="image_outlet" accept="image/png, image/jpg, image/jpeg" data-placeholder="{{ lang('file_placeholder') ~ lang('photo_of_outlet_inside') }}">
+                    <input type="hidden" name="photo_of_outlet_inside" value="{{ set_value('photo_of_outlet_inside', photo_of_outlet_inside) }}">
+                </span>
+                {% if form_error('photo_of_outlet_inside') %}
+                    <label class="error" for="photo_of_outlet_inside">{{form_error('photo_of_outlet_inside')}}</label>
+                {% endif %}
+                <label class="help-block text-muted">{{ lang('text_helper_upload_file') }}</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row product-group fileupload fileupload-new {% if form_error('photo_of_product_and_cassier') %} has-error{% endif %}" data-provides="fileupload" data-hidden-target="photo_of_product_and_cassier" data-hidden-bucket="bucket_proof_payment" id="upload-photo-journey">
+        <label class="control-label col-md-12">
+            {{ lang('photo_of_product_and_cassier') }}
+        </label>
+        <div class="col-xs-12">
+            <div class="input-group btn-group col-md-12">
+                
+                <div class="input-append">
+                    <div class="uneditable-input">
+                        <i class="fa fa-file fileupload-exists"></i>
+                        <span class="fileupload-preview"></span>
+                    </div>
+                    <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">
+                        <i class="fa fa-close"></i>
+                    </a>
+                </div>
+                <span class="btn-file">
+                    <button type="button" class="btn btn-primary fileupload-new">{{ lang('btn_upload') ~ lang('photo_of_product_and_cassier') }}</button>
+                    <button type="button" class="btn btn-primary fileupload-viewphoto hidden" data-toggle="modal" data-target="#modal-preview-photo">{{ lang('btn_view') ~ lang('photo_of_product_and_cassier')}}</button>
+                    <input type="file" class="file-photo" name="image_outlet" accept="image/png, image/jpg, image/jpeg" data-placeholder="{{ lang('file_placeholder') ~ lang('photo_of_product_and_cassier') }}">
+                    <input type="hidden" name="photo_of_product_and_cassier" value="{{ set_value('photo_of_product_and_cassier', photo_of_product_and_cassier) }}">
+                </span>
+                {% if form_error('photo_of_product_and_cassier') %}
+                    <label class="error" for="photo_of_product_and_cassier">{{form_error('photo_of_product_and_cassier')}}</label>
+                {% endif %}
+                <label class="help-block text-muted">{{ lang('text_helper_upload_file') }}</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row nav-button right-text">
+        <button type="button" class="btn submit-draft" >{{ lang('btn_draft') }}</button>
+        <button type="button" class="btn prev" >{{ lang('btn_prev') }}</button>
+        <button type="button" class="btn next" >{{ lang('btn_next') }}</button>
+    </div>
+</div>

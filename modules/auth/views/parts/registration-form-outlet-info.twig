@@ -1,0 +1,407 @@
+
+<div class="col-md-12 mobile-fullscreen tab-pane active" id="form-info">
+    <input type="hidden" name="mt_leads_code" class="leads-code" value="{{ unnormalize_code(leads.mt_leads_code) }}" />
+    <input type="hidden" name="package_option" class="package-option" value="{{ invoice.package_options }}" />
+    <input type="hidden" name="contract_period" class="contract-period" value="{{ invoice.package_contract_period }}" />
+    <input type="hidden" name="contract_deadline" class="contract-deadline" value="{{ invoice.contract_deadline }}" />
+    <input type="hidden" name="created_latitude" class="created-latitude" value="" />  
+    <input type="hidden" name="created_longitude" class="created-longitude" value="" />
+    <input type="hidden" name="is_draft" class="is-draft" value="0" />
+    <div class="form-group row border-bottom">
+        <div class="col-md-12">
+            <h4>
+                {{ lang('id_application') }}
+            </h4>
+            <label class="">
+                -
+            </label>
+            
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('register_type') }}
+        </label>
+        <div class="col-md-6">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="register_type" class="register-type" value="new" {{ register_type == 'new' ? 'checked' : '' }}>
+                    {{ lang('option_new_customer') }}
+                </label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="register_type" class="register-type" value="additional" {{ register_type == 'additional' ? 'checked' : '' }}>
+                    {{ lang('option_existing_customer') }}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row parent-outlet-group">
+        <label class="control-label col-md-12">
+            {{ lang('parent_outlet') }}
+        </label>
+        <div class="col-md-12">
+            <select class="form-control populate" name="parent_outlet"
+                    data-plugin-selectTwo data-plugin-options='{"width": "style", "placeholder": "{{ lang('select_placeholder') ~lang('parent_outlet') }}", "allowClear": true, "selected_id": "{{ set_value('parent_outlet', parent_outlet) }}", "selected_text": "{{ set_value('parent_outlet_name', parent_outlet_name) }}"}'
+                    data-remote='{"url": "{{ base_url("customer/registration/get_existing_main_outlet") }}", "transformResponse": {"id": "mt_outlet_code", "text": "outlet_name"} }'
+            >
+                <option></option>
+            </select>
+        </div>
+        
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('outlet_name') }}
+        </label>
+        <div class="col-md-12">
+            <input type="text" name="outlet_name" placeholder="{{ lang('input_placeholder') ~ lang('outlet_name') }}" class="form-control col-md-12 outlet-name" value="{{ set_value('outlet_name', outlet_name) }}" maxlength="75"/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('customer_type') }}
+        </label>
+        <div class="col-md-6">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="customer_type" class="customer-type" value="personal" {{ customer_type == 'personal' ? 'checked' : '' }}>
+                    {{ lang('option_personal') }}
+                </label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="customer_type" class="customer-type" value="legal_entity" {{ customer_type == 'legal_entity' ? 'checked' : '' }}>
+                    {{ lang('option_legal_entity') }}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row legal-entity-type-group">
+        
+        <label class="control-label col-md-12">
+            {{ lang('legal_entity_type') }}
+        </label>
+        <div class="col-md-12">
+            <select class="form-control populate" name="legal_entity_type" 
+                    data-plugin-selectTwo data-plugin-options='{"width": "style", "placeholder": "{{ lang('select_placeholder') ~lang('legal_entity_type') }}", "allowClear": true, "selected_id": "{{ set_value('legal_entity_type', legal_entity_type) }}", "selected_text": "{{ set_value('legal_entity_type', legal_entity_type) }}"}'
+                    data-remote='{"url": "{{ base_url("customer/registration/get_legal_entity_type") }}", "transformResponse": {"id": "id", "text": "id"} }'
+            >
+                <option></option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row border-bottom">
+        <div class="col-md-12 ">
+            <h3><bold>{{ lang('header_outlet') }}</bold></h3>
+            
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-10">
+            {{ lang('duplicate_input') }}
+        </label>
+        <div class="col-md-2 right-text">
+            <div class="switch switch-sm switch-primary">
+                <input type="checkbox"  class="duplicate-data" data-plugin-ios-switch  />
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('businesstype') }}
+        </label>
+        <div class="col-md-12">
+            <input type="hidden" name="m_businesstype_name" value="{{ set_value('m_businesstype_name', m_businesstype_name) }}"/>
+            <select class="form-control populate select2-hidden-accessible businesstype" name="m_businesstype_code" 
+                                data-plugin-selectTwo data-plugin-options='{"width": "style", "placeholder": "{{ lang('select_placeholder') ~lang('businesstype') }}", "allowClear": true, "selected_id": "{{ set_value('m_businesstype_code',m_businesstype_code) }}", "selected_text": "{{ set_value('m_businesstype_name', m_businesstype_name) }}"}'
+                                data-remote='{"url": "{{ base_url("select/master/index/businesstype") }}", "transformResponse": {"id": "m_businesstype_code", "text": "m_businesstype_name"} }'
+                                data-trigger-to-change-text='input[name="m_businesstype_name"]'
+            >
+                <option></option>
+            </select>
+            {%- if form_error('m_businesstype_code') %}
+                <label class="error" for="m_businesstype_code">{{form_error('m_businesstype_code')}}</label>
+            {% endif -%}
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('outlet_address') }}
+        </label>
+        <div class="col-md-12">
+            <textarea type="text" name="outlet_address" placeholder="{{ lang('input_placeholder') ~ lang('outlet_address') }}" class="form-control col-md-12 outlet-address" >{{ set_value('outlet_address', outlet_address) }}</textarea>
+        </div>
+        {%- if form_error('outlet_address') %}
+        <label class="error" for="outlet_address">{{form_error('outlet_address')}}</label>
+        {% endif -%}
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('outlet_province') }}
+        </label>
+        <div class="col-md-12">
+            <input type="hidden" class="form-control" id="outlet-province-name" name="outlet_m_province_name" value="{{ set_value('outlet_m_province_name', outlet_m_province_name) }}" />
+            <select id="select-outlet-province" name="outlet_m_province_id" class="form-control populate" 
+                                data-plugin-selectTwo data-plugin-options='{"width": "style", "placeholder": "{{ lang('select_placeholder') ~lang('outlet_province') }}", "allowClear": true, "selected_id": "{{ set_value('outlet_m_province_id', outlet_m_province_id) }}", "selected_text": "{{ set_value('outlet_m_province_name', outlet_m_province_name) }}"}' 
+                                data-remote='{"url": "{{ base_url("select/territory/province") }}", "transformResponse": {"id": "m_province_id", "text": "m_province_name"} }'
+                                data-trigger-to-change-select='select[name="outlet_m_regency_id"]' data-trigger-to-change-text='input[name="outlet_m_province_name"]'
+            >
+                <option></option>
+            </select>
+        </div>
+        {%- if form_error('outlet_m_province_id') %}
+        <label class="error" for="outlet_m_province_id">{{form_error('outlet_m_province_id')}}</label>
+        {% endif -%}
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('outlet_regency') }}
+        </label>
+        <div class="col-md-12">
+            <input type="hidden" id="outlet-regency-name" name="outlet_m_regency_name" value="{{ set_value('outlet_m_regency_name', outlet_m_regency_name) }}"/>  
+            <select id="select-outlet-regency" name="outlet_m_regency_id" class="form-control populate" 
+                                data-plugin-selectTwo data-plugin-options='{"width": "style", "placeholder": "{{ lang('select_placeholder') ~lang('outlet_regency') }}", "allowClear": true, "selected_id": "{{ set_value('outlet_m_regency_id', outlet_m_regency_id) }}", "selected_text": "{{ set_value('outlet_m_regency_name', outlet_m_regency_name) }}"}'
+                                data-remote='{"url": "{{ base_url("select/territory/regency") }}", "transformResponse": {"id": "m_regency_id", "text": "m_regency_name"}, "triggerChangeOnResponse": {"selector": "select[name=outlet_m_province_id]", "param": "province_id"}}'
+                                data-trigger-to-change-select='select[name="outlet_m_district_id"]' data-trigger-to-change-text='input[name="outlet_m_regency_name"]'
+            >
+                <option></option>
+            </select>
+        </div>
+        {%- if form_error('outlet_m_regency_id') %}
+        <label class="error" for="outlet_m_regency_id">{{form_error('outlet_m_regency_id')}}</label>
+        {% endif -%}
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('outlet_district') }}
+        </label>
+        <div class="col-md-12">
+            <input type="hidden" id="outlet-district-name" name="outlet_m_district_name" value="{{ set_value('outlet_m_district_name', outlet_m_district_name) }}"/>
+            <select id="select-outlet-district" name="outlet_m_district_id" class="form-control populate" 
+                                data-plugin-selectTwo data-plugin-options='{"width": "style", "placeholder": "{{ lang('select_placeholder') ~lang('outlet_district') }}", "allowClear": true, "selected_id": "{{ set_value('outlet_m_district_id', outlet_m_district_id) }}", "selected_text": "{{ set_value('outlet_m_district_name', outlet_m_district_name) }}"}'
+                                data-remote='{"url": "{{ base_url("select/territory/district") }}", "transformResponse": {"id": "m_district_id", "text": "m_district_name"}, "triggerChangeOnResponse": {"selector": "select[name=outlet_m_regency_id]", "param": "regency_id"}}'
+                                data-trigger-to-change-text='input[name="outlet_m_district_name"]' 
+            >
+                <option></option>
+            </select>
+        </div>
+        {%- if form_error('outlet_m_district_id') %}
+        <label class="error" for="m_district_id">{{form_error('outlet_m_district_id')}}</label>
+        {% endif -%}
+    
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('outlet_postal_code') }}
+        </label>
+        <div class="col-md-12">
+            <input type="number" name="outlet_postal_code" placeholder="{{ lang('input_placeholder') ~ lang('outlet_postal_code') }}" class="form-control outlet-postal-code col-md-12" value="{{ set_value('outlet_postal_code', outlet_postal_code) }}" maxlength="8"/>
+        </div>
+        {%- if form_error('outlet_postal_code') %}
+        <label class="error" for="outlet_postal_code">{{form_error('outlet_postal_code')}}</label>
+        {% endif -%}
+    
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('outlet_phone') }}
+        </label>
+        <div class="col-md-12">
+            <input type="text" name="outlet_phone" placeholder="{{ lang('input_placeholder') ~ lang('outlet_phone') }}" class="form-control col-md-12 outlet-phone" value="{{ set_value('outlet_phone', outlet_phone) }}" maxlength="13"/>
+        </div>
+        {%- if form_error('outlet_phone') %}
+        <label class="error" for="outlet_phone">{{form_error('outlet_phone')}}</label>
+        {% endif -%}
+    
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('outlet_email') }}
+        </label>
+        <div class="col-md-12">
+            <input type="text" name="outlet_email" placeholder="{{ lang('input_placeholder') ~ lang('outlet_email') }}" class="form-control col-md-12 outlet-email" value="{{ set_value('outlet_email', outlet_email) }}" maxlength="50"/>
+        </div>
+        {%- if form_error('outlet_email') %}
+        <label class="error" for="outlet_email">{{form_error('outlet_email')}}</label>
+        {% endif -%}
+    
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('is_building_ownership_status') }}
+        </label>
+        <div class="col-md-6">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="is_building_ownership_status" class="is-building-ownership-status" value="1" {{ is_building_ownership_status == '1' ? 'checked' : ''  }}>
+                    {{ lang('option_private_property') }}
+                </label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="is_building_ownership_status" class="is-building-ownership-status" value="0" {{ is_building_ownership_status == '0' ? 'checked' : ''  }}>
+                    {{ lang('option_rent') }}
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('omzet_estimation') }}
+        </label>
+        <div class="col-md-12">
+            <input type="hidden" id="m_omzet_estimation_name" name="m_omzet_estimation_name" value="{{ set_value('m_omzet_estimation_name', m_omzet_estimation_name) }}"/>
+            <select class="form-control populate omzet-estimation" name="m_omzet_estimation_code" id="omzet-estimation" 
+                    data-plugin-selectTwo data-plugin-options='{"width": "style", "placeholder": "{{ lang('select_placeholder') ~lang('omzet_estimation') }}", "allowClear": true, "selected_id": "{{ set_value('m_omzet_estimation_code', m_omzet_estimation_code) }}", "selected_text": "{{ set_value('omzet_estimation_name', m_omzet_estimation_name) }}"}'
+                    data-remote='{"url": "{{ base_url("customer/registration/get_omzet_estimation") }}", "transformResponse": {"id": "m_omzet_estimation_code", "text": "m_omzet_estimation_display"} }'
+                    data-trigger-to-change-text='input[name="m_omzet_estimation_name"]' 
+            >
+                <option></option>
+            </select>
+        </div>
+        
+    </div>
+    
+    <div class="form-group row border-bottom">
+        <div class="col-md-12 ">
+            <h3>{{ lang('header_owner') }}</h3>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('owner_name') }}
+        </label>
+        <div class="col-md-12">
+            <input type="text" name="owner_name" placeholder="{{ lang('input_placeholder') ~ lang('owner_name')}}" class="form-control col-md-12" value="{{ set_value('owner_name', owner_name) }}" maxlength="100"/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('owner_address') }}
+        </label>
+        <div class="col-md-12">
+            <textarea type="text" name="owner_address" placeholder="{{ lang('input_placeholder') ~ lang('owner_address') }}" class="form-control col-md-12" >{{ set_value('owner_address', owner_address) }}</textarea>
+        </div>
+        {%- if form_error('business_type') %}
+        <label class="error" for="owner_address">{{form_error('owner_address')}}</label>
+        {% endif -%}
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('owner_province') }}
+        </label>
+        <div class="col-md-12">
+            <input type="hidden" class="form-control" id="owner-province-name" name="owner_m_province_name" value="{{ set_value('owner_m_province_name', owner_m_province_name) }}" />
+            <select id="select-owner-province" name="owner_m_province_id" class="form-control populate" 
+                                data-plugin-selectTwo data-plugin-options='{"width": "style", "placeholder": "{{ lang('select_placeholder') ~lang('owner_province') }}", "allowClear": true, "selected_id": "{{ set_value('owner_m_province_id', owner_m_province_id) }}", "selected_text": "{{ set_value('owner_m_province_name', owner_m_province_name) }}"}' 
+                                data-remote='{"url": "{{ base_url("select/territory/province") }}", "transformResponse": {"id": "m_province_id", "text": "m_province_name"} }'
+                                data-trigger-to-change-select='select[name="owner_m_regency_id"]' data-trigger-to-change-text='input[name="owner_m_province_name"]'
+            >
+                <option></option>
+            </select>
+        </div>
+        {%- if form_error('owner_m_province_id') %}
+        <label class="error" for="owner_m_province_id">{{form_error('owner_m_province_id')}}</label>
+        {% endif -%}
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('owner_regency') }}
+        </label>
+        <div class="col-md-12">
+            <input type="hidden" id="owner-regency-name" name="owner_m_regency_name" value="{{ set_value('owner_m_regency_name', owner_m_regency_name) }}"/>  
+            <select id="select-owner-regency" name="owner_m_regency_id" class="form-control populate" 
+                                data-plugin-selectTwo data-plugin-options='{"width": "style", "placeholder": "{{ lang('select_placeholder') ~lang('owner_regency') }}", "allowClear": true, "selected_id": "{{ set_value('owner_m_regency_id', owner_m_regency_id) }}", "selected_text": "{{ set_value('owner_m_regency_name', owner_m_regency_name) }}"}'
+                                data-remote='{"url": "{{ base_url("select/territory/regency") }}", "transformResponse": {"id": "m_regency_id", "text": "m_regency_name"}, "triggerChangeOnResponse": {"selector": "select[name=owner_m_province_id]", "param": "province_id"}}'
+                                data-trigger-to-change-select='select[name="owner_m_district_id"]' data-trigger-to-change-text='input[name="owner_m_regency_name"]'
+            >
+                <option></option>
+            </select>
+        </div>
+        {%- if form_error('owner_m_regency_id') %}
+        <label class="error" for="owner_m_regency_id">{{form_error('owner_m_regency_id')}}</label>
+        {% endif -%}
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('owner_district') }}
+        </label>
+        <div class="col-md-12">
+            <input type="hidden" id="owner-district-name" name="owner_m_district_name" value="{{ set_value('owner_m_district_name', owner_m_district_name) }}"/>
+            <select id="select-owner-district" name="owner_m_district_id" class="form-control populate" 
+                                data-plugin-selectTwo data-plugin-options='{"width": "style", "placeholder": "{{ lang('select_placeholder') ~lang('owner_district') }}", "allowClear": true, "selected_id": "{{ set_value('owner_m_district_id', owner_m_district_id) }}", "selected_text": "{{ set_value('owner_m_district_name', owner_m_district_name) }}"}'
+                                data-remote='{"url": "{{ base_url("select/territory/district") }}", "transformResponse": {"id": "m_district_id", "text": "m_district_name"}, "triggerChangeOnResponse": {"selector": "select[name=owner_m_regency_id]", "param": "regency_id"}}'
+                                data-trigger-to-change-text='input[name="owner_m_district_name"]' 
+            >
+                <option></option>
+            </select>
+        </div>
+        {%- if form_error('owner_m_district_id') %}
+        <label class="error" for="owner_m_district_id">{{form_error('owner_m_district_id')}}</label>
+        {% endif -%}
+    
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('owner_postal_code') }}
+        </label>
+        <div class="col-md-12">
+            <input type="number" name="owner_postal_code" placeholder="{{ lang('input_placeholder') ~ lang('owner_postal_code') }}" class="form-control" value="{{ set_value('owner_postal_code', owner_postal_code) }}" maxlength="8"/>
+        </div>
+        {%- if form_error('owner_postal_code') %}
+        <label class="error" for="owner_postal_code">{{form_error('owner_postal_code')}}</label>
+        {% endif -%}
+    
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('owner_phone') }}
+        </label>
+        <div class="col-md-12">
+            <input type="text" name="owner_phone" placeholder="{{ lang('input_placeholder') ~ lang('owner_phone') }}" class="form-control col-md-12" value="{{ set_value('owner_phone', owner_phone) }}" maxlength="13"/>
+        </div>
+        {%- if form_error('owner_phone') %}
+        <label class="error" for="owner_phone">{{form_error('owner_phone')}}</label>
+        {% endif -%}
+    
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('owner_no_ktp') }}
+        </label>
+        <div class="col-md-12">
+            <input type="text" name="owner_no_ktp" placeholder="{{ lang('input_placeholder') ~ lang('owner_no_ktp') }}" class="form-control col-md-12" value="{{ set_value('owner_no_ktp', owner_no_ktp) }}" maxlength="16" />
+        </div>
+        {%- if form_error('owner_no_ktp') %}
+        <label class="error" for="owner_no_ktp">{{form_error('owner_no_ktp')}}</label>
+        {% endif -%}
+    
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('owner_email') }}
+        </label>
+        <div class="col-md-12">
+            <input type="text" name="owner_email" placeholder="{{ lang('input_placeholder') ~ lang('owner_email')}}" class="form-control col-md-12" value="{{ set_value('owner_email', owner_email) }}" maxlength="50"/>
+        </div>
+        {%- if form_error('owner_email') %}
+        <label class="error" for="owner_email">{{form_error('owner_email')}}</label>
+        {% endif -%}
+    
+    </div>
+    <div class="form-group row nav-button right-text">
+        <button type="button" class="btn submit-draft" >{{ lang('btn_draft') }}</button>
+        <button type="button" class="btn next" >{{ lang('btn_next') }}</button>
+        
+    </div>
+    
+</div>

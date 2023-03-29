@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Pendaftaran Pelanggan Majoo</title>
+    <style>
+        .with-color td{
+            background-color : #edf4e4;
+        }
+
+        .no-color{
+            background-color : white!important;
+        }
+        div{
+            /* background-color : cyan; */
+            padding-top : 10px;
+            text-align:justify; 
+            line-height: 15px;
+        }
+        p{
+            text-align:justify; 
+            line-height: 12px;
+        }
+        small{
+            text-align:justify; 
+            line-height: 10px;
+        }
+    </style>
+</head>
+<body>
+    <table cellpadding = "4" cellspacing="17" class="with-color" width="700">
+        <tr>
+            <td width="310" bgcolor="#FFFFFF">
+                <span >
+                    ID aplikasi
+                    
+                </span>
+                <span>
+                    
+                </span>
+                <br>
+                    <small >
+                        (Diisi oleh petugas)
+                    </small>
+            </td>
+            <td rowspan="2" align="center" style="height: 50px;">
+                <div>
+                    Paket Pilihan
+                </div>
+                <div >
+                    <span>
+                        Paket : 
+                    </span>
+                    <span color="#28aaa4">
+                        {% if outlet.package_option == 'starter' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Starter
+                        {% if outlet.package_option == 'advance' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Advance
+                    </span>
+                </div>
+                <div >
+                    <span>
+                        Periode Kontrak : 
+                    </span>
+                    <span >
+                        {{ outlet.contract_period | replace({'M' : ''}) }}
+                    </span>
+                    <span>
+                        bulan
+                    </span>
+                </div>
+                <div>
+                    Paket Bundling
+                </div>
+                <div>
+                    {% if outlet == '' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                    ....
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td >
+                <div>
+                    <span>
+                        Jenis Pendaftaran
+                    </span>
+                </div>
+                <div>
+                    <span color="#28aaa4">
+                        {% if outlet.register_type == 'new' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Baru
+                        {% if outlet.register_type == 'existing' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Existing
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td >
+                <div>
+                    <span>
+                        Bentuk Badan Hukum
+                    </span>
+                </div>
+                <div>
+                    <span color="#28aaa4">
+                        {% if outlet.customer_type == 'personal' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Perorangan
+                    </span>
+                </div>
+                <div>
+                    <span color="#28aaa4">
+                        {% if outlet.customer_type == 'legal_entity' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Badan Hukum
+                        
+                        &nbsp;
+                        &nbsp;&nbsp;
+                        Nama : {{ outlet.legal_entity_type }}
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        Data Usaha
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        1. Nama Usaha {% for user in 1..18 %}&nbsp;{% endfor %}:
+                    </span>
+                    <span>
+                        {{ outlet.outlet_name }}
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        2. Badan/ Jasa yang di jual :
+                    </span>
+                    <span>
+                        {{ outlet.m_businesstype_name }}
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        3. Alamat Usaha {% for user in 1..16 %}&nbsp;{% endfor %}:
+                    </span>
+                    <span>
+                        {{ outlet.address }}
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        4. Kode Pos {% for user in 1..23 %}&nbsp;{% endfor %}:
+                    </span>
+                    <span>
+                        {{ outlet.postal_code }}
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        5. Status Lokasi Usaha {% for user in 1..6 %}&nbsp;{% endfor %}:
+                    </span>
+                    <span>
+                        {% if outlet.is_building_ownership_status == '1' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Milik Pribadi
+                        {% if outlet.is_building_ownership_status == '0' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Sewa
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        6. No. Telp. Usaha {% for user in 1..12 %}&nbsp;{% endfor %}:
+                    </span>
+                    <span>
+                        {{ outlet.outlet_phone }}
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        7. Email Usaha {% for user in 1..18 %}&nbsp;{% endfor %}:
+                    </span>
+                    <span>
+                        {{ outlet.outlet_email }}
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        8. Perkiraan Omzet Usaha :
+                    </span>
+                    <br/>
+                    <span color="#28aaa4">
+                        {% if outlet.m_omzet_estimation_code == 'RINTISAN' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Rintisan
+                        {% if outlet.m_omzet_estimation_code == 'KECIL' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Kecil
+                        {% if outlet.m_omzet_estimation_code == 'MENENGAH' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Menengah
+                        {% if outlet.m_omzet_estimation_code == 'BERKEMBANG' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Berkembang
+                        {% if outlet.m_omzet_estimation_code == 'BESAR' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Besar
+                    </span>
+                </div>
+            </td>
+            <td >
+                <div>
+                    <span>
+                        Pengajuan Penerimaan Pembayaran Elektronik
+                    </span>
+                </div>
+                <div>
+                    <span color="#28aaa4">
+                        {% if outlet.is_request_qris == '1' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Single E-money - QRIS
+                        {% if outlet.is_request_tpoin == '1' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Telkomsel Poin
+                        {% if outlet.is_request_edcbca == '1' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        EDC BCA
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        1. Nama Bank {% for user in 1..15 %}&nbsp;{% endfor %}:
+                    </span>
+                    <span>
+                        {{ outlet.bank_account }}
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        2. No. Rekening {% for user in 1..12 %}&nbsp;{% endfor %}:  
+                    </span>
+                    <span>
+                        {{ outlet.bank_account_number }}
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        3. Atas Nama {% for user in 1..16 %}&nbsp;{% endfor %}:
+                    </span>
+                    <span>
+                        {{ outlet.bank_account_name }}
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        4. Cabang {% for user in 1..22 %}&nbsp;{% endfor %}:
+                    </span>
+                    <span>
+                        {{ outlet.bank_branch }}
+                    </span>
+                </div>
+                <div>
+                    <small>
+                        <p>
+                            Catatan : 
+                        </p>
+                        <p>
+                            -   Penggunaan layanan pihak ketiga majoo memahami besaran MDR (Merchant
+                                Discount Rate) yang telah ditentukan oleh pihak ketiga dan/atau majoo
+                        </p>
+                        <p>
+                            -   Khusus pengguna yang berbadan hukum maka harus mengumpulkan dokumen
+                                kelengkapan lainnya seperti SIUP, Akta Pendirian, SK Kemenkumham, dll
+                        </p>
+                        <p>
+                            - Khusus pengajuan EDC Bank BCA, pengguna akan mengisi formulir pengajuan
+yang diberikan oleh Bank BCA terlebih dahulu dan melengkapi dokumen lain
+yang dibutuhkan
+                        </p>
+                        <p>
+                            - Keputusan hasil pengajuan EDC Bank BCA ditentukan oleh Bank BCA sesuai
+dengan kebijakan dan ketentuan yang berlaku
+yang dibutuhkan
+                        </p>
+                        <p>
+                            - Nama akun Bank yang dicantumkan harus sama dengan nama pemilik / nama
+badan hukum
+                        </p>
+                    </small>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <span>
+                        Data Pemilik Usaha
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        1. Nama Pemilik/Direksi {% for user in 1..5 %}&nbsp;{% endfor %}:
+                    </span>
+                    <span>
+                        {{ customer.owner_name }}
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        2. No. KTP Pemilik/Direksi :
+                    </span>
+                    <span>
+                        {{ customer.owner_no_ktp}}
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        3. Alamat Pemilik/Direksi {% for user in 1..3 %}&nbsp;{% endfor %}:
+                    </span>
+                    <span>
+                        {{ customer.address }}
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        4. Kode Pos {% for user in 1..26 %}&nbsp;{% endfor %}:
+                    </span>
+                    <span>
+                        {{ customer.postal_code }}
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        5. No. Telp Pemilik/Direksi {% for user in 1..1 %}&nbsp;{% endfor %}:
+                    </span>
+                    <span>
+                        {{ customer.owner_phone }}
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        6. Email Pemilik/Direksi {% for user in 1..6 %}&nbsp;{% endfor %}:
+                    </span>
+                    <span>
+                        {{ customer.owner_email }}
+                    </span>
+                </div>
+                <div>
+                    <span >
+                        7. No. NPWP {% for user in 1..24 %}&nbsp;{% endfor %}:
+                    </span>
+                    <span>
+                        {{ outlet.no_npwp }}
+                    </span>
+                </div>
+                <div>
+                    <small>
+                        <p>
+                            Catatan : 
+                        </p>
+                        <p>
+                            -   Khusus pengguna yang berbadan hukum maka data yang diisi adalah data direksi
+penanggung jawab utama perusahaan
+                        </p>
+                        <p>
+                            -   Khusus pengguna yang berbadan hukum maka data yang diisi adalah data direksi
+penanggung jawab utama perusahaan
+                        </p>
+                    </small>
+                </div>
+                
+
+            </td>
+            
+            <td bgcolor="#FFFFFF">
+                
+            </td>
+        </tr>
+        <tr >
+            <td colspan="2" bgcolor="#FFFFFF">
+                <div>
+                    <small>
+                        <p>
+                            * Periode kontrak terhitung sejak awal Aktivasi Lisensi diproses, dan proses Aktivasi Lisensi paling lambat 3 bulan setelah pembayaran langganan diterima majoo
+                        </p>
+                        <p>
+                            ** Mohon lengkapi lampiran foto/copy persyaratan dokumen (berbentuk softcopy atau hardcopy) sesuai dengan bentuk badan hukum yang didaftarkan untuk proses pengajuan penerimaan
+    pembayaran elektronik (S&K berlaku)
+                        </p>
+                        <p>
+                            *** Mohon diisi jika melakukan pembelian Paket Bundling, pengiriman dilakukan setelah penyelesaian pembayaran administrasi dan biaya pengiriman barang ditanggung oleh pelanggan
+                        </p>
+                        <p>
+                            **** Kunjungan Technical Support merupakan opsional jika pelanggan memerlukan bantuan instalasi, terdapat kemungkinan biaya transportasi dan jasa yang ditanggung oleh pelanggan
+    (S&K berlaku)
+                        </p>
+                    </small>
+                </div>
+                <div>
+                    Dengan ini saya menjamin kebenaran data yang saya berikan dan menyetujui seluruh SYARAT & KONDISI
+PENGGUNAAN LAYANAN MAJOO maupun seluruh pihak yang berafiliasi dengan PT. Majoo Teknologi Indonesia
+                        {% if true == true %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Ya
+                        {% if outlet == '' %}
+                            <img src="./assets/images/checked.png" width="12" height="12" border="0" />
+                        {% else %}
+                            <img src="./assets/images/unchecked.png" width="12" height="12" border="0" />
+                        {% endif %}
+                        Tidak
+                </div>
+                
+            </td>
+        </tr>
+        <tr>
+            <td width="50" bgcolor="#FFFFFF">
+            </td>
+            <td width="190" bgcolor="#FFFFFF">
+                <div >
+                   Pelanggan telah mengerti, memahami dan
+menerima syarat dan ketentuan yang berlaku 
+                </div>
+            </td>
+            <td width="70" bgcolor="#FFFFFF">
+            </td>
+            <td bgcolor="#FFFFFF">
+                <div>
+                    Sales Person majoo
+                </div>
+
+            </td>
+            
+        </tr>
+        <tr>
+            <td width="50" bgcolor="#FFFFFF">
+            </td>
+            <td width="190" bgcolor="#FFFFFF">
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div>
+                   {{ customer.owner_name }}
+                </div>
+            </td>
+            <td width="70" bgcolor="#FFFFFF">
+            </td>
+            <td bgcolor="#FFFFFF">
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div>
+                    {{ outlet.sales_name }}
+                </div>
+
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <br/>
+    <table cellpadding = "5" cellspacing="5" width="620">
+        <tr>
+            <td >
+                <img src="./assets/images/term.png" width="620"  border="0" />
+            </td>
+            
+        </tr>
+    </table>
+    
+    
+</body>
+</html>

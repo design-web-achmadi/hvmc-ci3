@@ -24,6 +24,7 @@ class Welcome extends CI_Controller {
 		print_r(base_url('/welcome'));
 		echo '<br><a href="'.base_url('/welcome').'">testt</a>';
 		var_dump(class_exists('MX_Router'));
+		var_dump($this->config->item('modules_locations'));
 		exit(__FILE__.'@@'.__CLASS__.'@'.__METHOD__.'@'.__LINE__);
 		
 		$this->load->view('welcome_message');

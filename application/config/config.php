@@ -24,8 +24,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $root = "http://".$_SERVER['HTTP_HOST'];
-$root .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
+$root .= str_replace('/'.basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
 $config['base_url']    = $root;
+
 // $config['base_url'] = '';
 
 /*
@@ -534,6 +535,12 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
+// $config['modules_locations'] = array(
+//     APPPATH.'modules/' => '../../modules/',
+// );
+
+$basepath = preg_replace("/application/", "", APPPATH);;
+$basepath = substr($basepath, 0, strlen($basepath) - 1);
 $config['modules_locations'] = array(
-    APPPATH.'modules/' => '../modules/',
+    $basepath . 'modules/' => '../../modules/',
 );

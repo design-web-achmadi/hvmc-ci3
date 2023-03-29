@@ -1,0 +1,100 @@
+
+<div class="col-md-12 mobile-fullscreen tab-pane" id="form-package">
+    <div class="form-group row border-bottom">
+        <div class="col-md-12 ">
+            <h3><bold>{{ lang('header_integrasi') }}</bold></h3>
+            
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">
+            {{ lang('package_type') }}
+        </label>
+        <div class="col-md-12">
+            <label>
+                {{ set_value('package_option', invoice.package_options) }}
+            </label>
+        </div>
+        
+    </div>
+    <div class="form-group row have-grabfood-group">
+        <label class="control-label col-md-12">
+            {{ lang('question_have_account') }}
+        </label>
+        <div class="col-md-6">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="is_have_grabfood_account" class="is-have-grabfood-account" data-click="false" value="1" {{ is_have_grabfood_account == 1 ? 'checked' : '' }}>
+                    {{ lang('option_yes') }}
+                </label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="is_have_grabfood_account" class="is-have-grabfood-account" data-click="false" value="0" {{ is_have_grabfood_account == 0 ? 'checked' : '' }}>
+                    {{ lang('option_no') }}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row integration-group">
+        <label class="control-label col-md-12">
+            {{ lang('question_want_integration') }}
+        </label>
+        <div class="col-md-6">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="is_want_majoo_integration" class="is-want-majoo-integration" value="1" {{ is_want_majoo_integration == 1 ? 'checked' : '' }}>
+                    {{ lang('option_yes') }}
+                </label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="is_want_majoo_integration" class="is-want-majoo-integration" value="0" {{ is_want_majoo_integration == 0 ? 'checked' : '' }}>
+                    {{ lang('option_no') }}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row register-group">
+        <label class="control-label col-md-12">
+            {{ lang('question_want_help') }}
+        </label>
+        <div class="col-md-6">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="is_registration_grabfood_via_majoo" class="is-registration-grabfood-via-majoo" value="1" {{ is_registration_grabfood_via_majoo == 1 ? 'checked' : '' }}>
+                    {{ lang('option_yes') }}
+                </label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="is_registration_grabfood_via_majoo" class="is-registration-grabfood-via-majoo" value="0" {{ is_registration_grabfood_via_majoo == 0 ? 'checked' : '' }}>
+                    {{ lang('option_no') }}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row grabfood-group">
+        <label class="control-label col-md-12">
+            {{ lang('merchant_name') }}
+        </label>
+        <div class="col-md-12">
+            <input type="text" class="form-control col-md-12" name="grabfood_merchant_name" maxlength="100"/>
+        </div>
+        {%- if form_error('grabfood_merchant_name') %}
+        <label class="error" for="grabfood_merchant_name">{{form_error('grabfood_merchant_name')}}</label>
+        {% endif -%}
+    </div>
+    
+    <div class="form-group row nav-button right-text">
+        <button type="button" class="btn submit-draft" >{{ lang('btn_draft') }}</button>
+        <button type="button" class="btn prev" >{{ lang('btn_prev') }}</button>
+        <button type="submit" id="btn-submit-registration" class="btn" >{{ lang('btn_submit') }}</button>
+    </div>
+</div>
